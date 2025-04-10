@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>密碼：</td>
+                    <td>密碼_123：</td>
                     <td>
                         <input type="password" name="password" required>
                     </td>
