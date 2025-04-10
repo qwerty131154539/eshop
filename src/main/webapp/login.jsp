@@ -33,13 +33,15 @@
                     </tr>
                 </c:if>
                 <tr>
+
                     <td>使用者名稱_ABC：</td>
+
                     <td>
                         <input type="text" name="loginId" value='<c:out value="${loginId}"/>' required>
                     </td>
                 </tr>
                 <tr>
-                    <td>密碼：</td>
+                    <td>密碼_123：</td>
                     <td>
                         <input type="password" name="password" required>
                     </td>
