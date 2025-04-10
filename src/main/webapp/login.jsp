@@ -33,7 +33,7 @@
                     </tr>
                 </c:if>
                 <tr>
-                    <td>使用者名稱_123：</td>
+                    <td>使用者名稱：</td>
                     <td>
                         <input type="text" name="loginId" value='<c:out value="${loginId}"/>' required>
                     </td>
