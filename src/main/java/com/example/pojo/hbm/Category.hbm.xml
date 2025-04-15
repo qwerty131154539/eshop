@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<hibernate-mapping>
-    <class name="com.example.pojo.entity.Category" table="category">
-        <id name="id" column="id" type="int">
-            <generator class="native"/>
+<hibernate-mapping package="com.example.pojo.entity">
+    <class name="Category" table="category">
+        <id name="id" column="id">
+            <generator class="identity"/> <!-- 對應 auto_increment -->
         </id>
-        <property name="name" column="name" type="string"/>
+
+        <property name="type" column="type" not-null="true" unique="true"/>
+
+        <!-- 一對多對應到 Product -->
+        <set name="products" cascade="all" inverse="true">
+            <key column="category_id"/>
+            <one-to-many class="Product"/>
+        </set>
     </class>
 </hibernate-mapping>
