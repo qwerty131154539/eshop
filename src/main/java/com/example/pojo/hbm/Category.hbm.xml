@@ -8,10 +8,9 @@
 
         <property name="type" column="type" not-null="true" unique="true"/>
 
-        <!-- 一對多對應到 Product -->
         <set name="products" cascade="all" inverse="true">
-            <key column="category_id"/>
-            <one-to-many class="Product"/>
+            <key column="category_id"/> <!-- 🔁 修正這裡：foreign key 在 Product 裡 -->
+            <one-to-many class="com.example.pojo.entity.Product"/>
         </set>
     </class>
 </hibernate-mapping>

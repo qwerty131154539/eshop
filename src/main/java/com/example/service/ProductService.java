@@ -5,5 +5,5 @@ import com.example.pojo.entity.Product;
 
 public interface ProductService {
     List<Product> getAllProducts();
-    List<Product> getProductsByType(String type);
+    List<Product> getProductsById(int id);
 }

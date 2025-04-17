@@ -6,10 +6,10 @@
             <generator class="native"/>
         </id>
         <property name="name" column="name" type="string"/>
-        <property name="type" column="type" type="string"/>
-        <property name="price" column="price" type="double"/>
+        <property name="price" column="price" type="double"/>  
+        <property name="type" column="type" type="string"/>  
         
-
+        <many-to-one name="category" class="com.example.pojo.entity.Category" column="category_id" />
     </class>
 </hibernate-mapping>
 

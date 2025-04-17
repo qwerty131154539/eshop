@@ -13,16 +13,17 @@
     <h1>商品清單</h1>
 
     <!-- 🟡 篩選表單區塊 -->
-    <form action="product/product-list" method="get">
+    <form action="/product-list.action" method="post">
         <label for="type">選擇類型：</label>
         <select name="selectedType" id="type">
             <option value="">-- 全部 --</option>
             <s:iterator value="categories">
-			    <option value="<s:property value='id' />"
-			        <s:if test="id == selectedType">selected="selected"</s:if>>
-			        <s:property value="type" />
-			    </option>
-			</s:iterator>
+                <s:set var="catType" value="type" />
+                <option value="${catType}">
+                    <s:if test="catType == selectedType"></s:if>
+                    <s:property value="type" />
+                </option>
+            </s:iterator>
         </select>
         <input type="submit" value="篩選" />
     </form>

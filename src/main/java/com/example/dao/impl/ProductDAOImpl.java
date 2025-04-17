@@ -20,12 +20,11 @@ public class ProductDAOImpl implements ProductDAO {
                 .createQuery("FROM Product", Product.class)
                 .list();
     }
-
     @Override
-    public List<Product> getProductsByType(String type) {
+    public List<Product> getProductsById(int id) {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Product WHERE category.type = :type", Product.class)
-                .setParameter("type", type)
+                .createQuery("SELECT p FROM Product p JOIN FETCH p.category c WHERE c.id = :id", Product.class)
+                .setParameter("id", id)
                 .list();
     }
 }

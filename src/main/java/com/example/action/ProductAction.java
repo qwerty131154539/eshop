@@ -23,31 +23,35 @@ public class ProductAction extends ActionSupport {
     private List<Product> products;
     
     private List<Category> categories;
-    private String selectedType;      
+    private int selectedType;      
 
     public List<Product> getProducts() {
         return products;
     }
     
-    public String getAllProducts() {
+    public String getAllOrTypeProducts() {
+
         categories = categoryService.getAllCategories();
+        System.out.println("👉 篩選的 selectedType: " + selectedType);       
         
-        if (selectedType != null && !selectedType.isEmpty()) {
-            products = productService.getProductsByType(selectedType);
+        if (selectedType != 0) {
+            products = productService.getProductsById(selectedType);
         } else {
             products = productService.getAllProducts();
         }
+//        for (Product p : products) {
+//            System.out.println("✅ 產品: " + p.getName() + ", 類型: " + (p.getCategory() != null ? p.getCategory().getType() : "NULL"));
+//        }
         return SUCCESS;
     }
     public List<Category> getCategories() {
         return categories;
     }
 
-    public void setSelectedType(String selectedType) {
+    public void setSelectedType(int selectedType) {
         this.selectedType = selectedType;
     }
-
-    public String getSelectedType() {
+    public int getSelectedType() {
         return selectedType;
     }
 }
