@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <package name="cart" extends="default" namespace="/cart">
+        <interceptors>
+            <interceptor-stack name="loginStack">
+                <!-- ModelDriven 攔截器，讓 Action 可以直接存取 Model 屬性 -->
+                <interceptor-ref name="modelDrivenStack" />
+                <!-- 檔案上傳攔截器，處理多媒體或文件上傳 -->
+                <interceptor-ref name="fileUpload" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="loginStack" />
+        <!-- 
+            定義登入的 Action：
+            - Action 名稱為 "login"，對應的處理類別為 com.example.action.LoginAction
+            - 方法 "doLogin" 負責處理登入邏輯
+        -->
+        <action name="add-to-cart" class="com.example.action.CartAction" method="addToCart">
+		    <result name="success" type="redirect">/shopping-cart.jsp</result>
+		</action>
+		<action name="remove-from-cart" class="com.example.action.CartAction" method="removeFromCart">
+		    <result name="success" type="redirect">/shopping-cart.jsp</result>
+		</action>		
+		<action name="update-quantity" class="com.example.action.CartAction" method="updateQuantity">
+		    <result name="success" type="redirect">/shopping-cart.jsp</result>
+		</action>		
+    </package>
+</struts>
+

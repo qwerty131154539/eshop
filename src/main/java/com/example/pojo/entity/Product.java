@@ -1,6 +1,15 @@
 package com.example.pojo.entity;
 
-import javax.persistence.*;
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
@@ -48,5 +57,19 @@ public class Product {
 	public void setCategory(Category category) {
 	    this.category = category;
 	}	
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (!(o instanceof Product)) return false;
+	    Product product = (Product) o;
+	    return id == product.id;
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
 }
 

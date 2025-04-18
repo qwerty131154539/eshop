@@ -50,7 +50,14 @@
             <label>產品類型(type)：</label>
             <s:property value="product.type" />
         </div>
-
+		
+		<s:form action="/cart/add-to-cart" method="get">
+		    <s:hidden name="productId" value="%{product.id}" />
+		    <div style="text-align:center; margin-top:20px;">
+		        <s:submit value="加入購物車" />
+		    </div>
+		</s:form>
+				
         <div style="text-align:center; margin-top:30px;">
             <a href="product-list.jsp">← 返回商品清單</a>
         </div>
