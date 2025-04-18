@@ -21,6 +21,12 @@
         <action name="product-list" class="com.example.action.ProductAction" method="getAllOrTypeProducts">
             <result name="success" type="dispatcher">/product-list.jsp</result>
         </action>
+        <action name="return" class="com.example.action.ProductAction">
+            <result name="success" type="dispatcher">/login.jsp</result>
+        </action>
+        <action name="product-detail" class="com.example.action.ProductAction" method="getProductById">
+            <result name="success" type="dispatcher">/product-detail.jsp</result>
+        </action>
     </package>
 </struts>
 

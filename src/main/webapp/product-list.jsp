@@ -40,7 +40,11 @@
         <s:iterator value="products">
             <tr>
                 <td><s:property value="id" /></td>
-                <td><s:property value="name" /></td>
+                <td>
+				    <a href="product/product-detail?productId=<s:property value='id'/>">
+					    <s:property value="name" />
+					</a>
+				</td>
                 <td><s:property value="type" /></td>
                 <td><s:property value="price" /></td>
             </tr>
@@ -49,7 +53,7 @@
 
     <br>
     <div style="text-align: center;">
-        <a href="login.jsp">回登入頁</a>
+        <a href="product/return">回登入頁</a>
     </div>
 </body>
 </html>

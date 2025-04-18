@@ -23,7 +23,11 @@ public class ProductAction extends ActionSupport {
     private List<Product> products;
     
     private List<Category> categories;
-    private int selectedType;      
+    
+    private Product product;
+    
+    private int selectedType;  
+    private int productId;
 
     public List<Product> getProducts() {
         return products;
@@ -35,13 +39,16 @@ public class ProductAction extends ActionSupport {
         System.out.println("👉 篩選的 selectedType: " + selectedType);       
         
         if (selectedType != 0) {
-            products = productService.getProductsById(selectedType);
+            products = productService.getProductsTypeById(selectedType);
         } else {
             products = productService.getAllProducts();
         }
-//        for (Product p : products) {
-//            System.out.println("✅ 產品: " + p.getName() + ", 類型: " + (p.getCategory() != null ? p.getCategory().getType() : "NULL"));
-//        }
+
+        return SUCCESS;
+    }
+    public String getProductById() {
+        System.out.println("🔍 查詢商品 ID：" + productId);
+        product = productService.getProductById(productId);
         return SUCCESS;
     }
     public List<Category> getCategories() {
@@ -54,4 +61,16 @@ public class ProductAction extends ActionSupport {
     public int getSelectedType() {
         return selectedType;
     }
+    public int getProductId() {
+        return productId;
+    }
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}   
 }

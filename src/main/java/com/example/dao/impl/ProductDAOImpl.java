@@ -1,12 +1,13 @@
 package com.example.dao.impl;
 
-import com.example.dao.ProductDAO;
-import com.example.pojo.entity.Product;
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.dao.ProductDAO;
+import com.example.pojo.entity.Product;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -21,10 +22,20 @@ public class ProductDAOImpl implements ProductDAO {
                 .list();
     }
     @Override
-    public List<Product> getProductsById(int id) {
+    public List<Product> getProductsTypeById(int id) {
         return sessionFactory.getCurrentSession()
                 .createQuery("SELECT p FROM Product p JOIN FETCH p.category c WHERE c.id = :id", Product.class)
                 .setParameter("id", id)
                 .list();
     }
+    
+    @Override
+    public Product getProductById(int id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("FROM Product p LEFT JOIN FETCH p.category WHERE p.id = :id", Product.class)
+                .setParameter("id", id)
+                .uniqueResult();
+    }
+
+
 }
