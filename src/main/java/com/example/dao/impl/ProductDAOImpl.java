@@ -2,6 +2,9 @@ package com.example.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +17,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Product> getAllProducts() {
@@ -37,5 +43,8 @@ public class ProductDAOImpl implements ProductDAO {
                 .uniqueResult();
     }
 
-
+    @Override
+    public Product findById(int id) {
+        return entityManager.find(Product.class, id);
+    }
 }

@@ -20,12 +20,6 @@
         -->
         <action name="add-to-cart" class="com.example.action.CartAction" method="addToCart">
 		    <result name="success" type="redirect">/shopping-cart.jsp</result>
-		</action>
-		<action name="remove-from-cart" class="com.example.action.CartAction" method="removeFromCart">
-		    <result name="success" type="redirect">/shopping-cart.jsp</result>
-		</action>		
-		<action name="update-quantity" class="com.example.action.CartAction" method="updateQuantity">
-		    <result name="success" type="redirect">/shopping-cart.jsp</result>
 		</action>		
     </package>
 </struts>

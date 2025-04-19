@@ -7,4 +7,5 @@ public interface ProductDAO {
     List<Product> getAllProducts();
     List<Product> getProductsTypeById(int id);
     Product getProductById(int id);
+    Product findById(int id);
 }

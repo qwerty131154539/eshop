@@ -1,50 +1,53 @@
 package com.example.pojo.entity;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import com.example.pojo.entity.Product;
+import java.util.*;
+
+import com.example.pojo.entity.*;
 
 public class ShoppingCart {
 
-    private Map<Product, Integer> items = new LinkedHashMap<>();
+    private Map<Integer, CartItem> items = new LinkedHashMap<>();
 
     public void addProduct(Product product) {
-        items.put(product, items.getOrDefault(product, 0) + 1);
-    }
-
-    public void removeProductById(int productId) {
-        items.keySet().removeIf(p -> p.getId() == productId);
+        CartItem item = items.get(product.getId());
+        if (item == null) {
+            item = new CartItem(product, 1);
+            items.put(product.getId(), item);
+        } else {
+            item.setQuantity(item.getQuantity() + 1);
+        }
     }
 
     public void updateQuantity(int productId, int quantity) {
         if (quantity <= 0) {
-            removeProductById(productId);
-            return;
-        }
-
-        for (Product p : items.keySet()) {
-            if (p.getId() == productId) {
-                items.put(p, quantity);
-                return;
+            items.remove(productId);
+        } else {
+            CartItem item = items.get(productId);
+            if (item != null) {
+                item.setQuantity(quantity);
             }
         }
     }
 
-    public void clear() {
-        items.clear();
+    public void remove(int productId) {
+        items.remove(productId);
+    }
+
+    public Collection<CartItem> getItems() {
+        return items.values();
     }
 
     public double getTotal() {
-        return items.entrySet().stream()
-                .mapToDouble(e -> e.getKey().getPrice() * e.getValue())
+        return items.values().stream()
+                .mapToDouble(CartItem::getSubtotal)
                 .sum();
     }
 
-    public Map<Product, Integer> getItems() {
-        return items;
+    public int getItemCount() {
+        return items.values().stream().mapToInt(CartItem::getQuantity).sum();
     }
 
-    public int getItemCount() {
-        return items.values().stream().mapToInt(i -> i).sum();
-    }
+	public void setItems(Map<Integer, CartItem> items) {
+		this.items = items;
+	}   
 }

@@ -5,46 +5,35 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.CartDAO;
+import com.example.dao.ProductDAO;
 import com.example.pojo.entity.Product;
 import com.example.pojo.entity.ShoppingCart;
 import com.example.service.CartService;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements CartService{
+
+    private static final String SESSION_CART_KEY = "cart";
 
     @Autowired
-    private CartDAO cartDAO;
+    private ProductDAO productDAO;
 
-    @Override
     public void addToCart(Map<String, Object> session, int productId) {
-        Product product = cartDAO.getProductById(productId);
-        if (product == null) {
-            throw new RuntimeException("找不到商品 ID: " + productId);
+        ShoppingCart cart = getOrCreateCart(session);
+        Product product = productDAO.findById(productId);
+        if (product != null) {
+            cart.addProduct(product);
         }
+    }
 
-        ShoppingCart cart = (ShoppingCart) session.get("cart");
+    private ShoppingCart getOrCreateCart(Map<String, Object> session) {
+        ShoppingCart cart = (ShoppingCart) session.get(SESSION_CART_KEY);
         if (cart == null) {
             cart = new ShoppingCart();
-            session.put("cart", cart);
+            session.put(SESSION_CART_KEY, cart);
         }
-
-        cart.addProduct(product); // ✅ 將商品加入購物車                
-    }
-    @Override
-    public void removeFromCart(Map<String, Object> session, int productId) {
-        ShoppingCart cart = (ShoppingCart) session.get("cart");
-        if (cart != null) {
-            cart.removeProductById(productId);
-        }
+        return cart;
     }
 
-    @Override
-    public void updateQuantity(Map<String, Object> session, int productId, int quantity) {
-        ShoppingCart cart = (ShoppingCart) session.get("cart");
-        if (cart != null) {
-            cart.updateQuantity(productId, quantity);
-        }
-    }
-
+    // 可擴充：removeFromCart(), updateQuantity()
 }
