@@ -25,6 +25,18 @@ public class CartServiceImpl implements CartService{
             cart.addProduct(product);
         }
     }
+    
+    @Override
+    public void removeFromCart(Map<String, Object> session, int productId) {
+        ShoppingCart cart = getOrCreateCart(session);
+        cart.remove(productId);
+    }
+
+    @Override
+    public void updateQuantity(Map<String, Object> session, int productId, int quantity) {
+        ShoppingCart cart = getOrCreateCart(session);
+        cart.updateQuantity(productId, quantity);
+    }
 
     private ShoppingCart getOrCreateCart(Map<String, Object> session) {
         ShoppingCart cart = (ShoppingCart) session.get(SESSION_CART_KEY);
@@ -34,6 +46,4 @@ public class CartServiceImpl implements CartService{
         }
         return cart;
     }
-
-    // 可擴充：removeFromCart(), updateQuantity()
 }

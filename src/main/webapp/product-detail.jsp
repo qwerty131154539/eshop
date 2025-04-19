@@ -59,8 +59,11 @@
 		</s:form>
 				
         <div style="text-align:center; margin-top:30px;">
-            <a href="product-list.jsp">← 返回商品清單</a>
+            <a href="product/product-list">返回商品清單</a>
         </div>
+        <div style="text-align:center; margin-top:30px;">
+            <a href="product/product-list">購物車</a>
+    	</div>
     </div>
 </body>
 </html>

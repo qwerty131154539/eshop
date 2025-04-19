@@ -14,6 +14,7 @@ public class CartAction extends ActionSupport implements SessionAware {
     private CartService cartService;
 
     private int productId;
+    private int quantity;
     private Map<String, Object> session;
 
     public String addToCart() {
@@ -22,8 +23,20 @@ public class CartAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
-    // 其他：removeFromCart(), updateQuantity() 可用同一模式擴充
+    // 移除商品
+    public String removeFromCart() {
+        System.out.println("🗑 移除商品 ID：" + productId);
+        cartService.removeFromCart(session, productId);
+        return SUCCESS;
+    }
 
+    // 更新數量
+    public String updateQuantity() {
+        System.out.println("✏️ 更新商品 ID：" + productId + " 數量：" + quantity);
+        cartService.updateQuantity(session, productId, quantity);
+        return SUCCESS;
+    }
+    
     public void setProductId(int productId) {
         this.productId = productId;
     }
@@ -46,6 +59,13 @@ public class CartAction extends ActionSupport implements SessionAware {
 
 	public Map<String, Object> getSession() {
 		return session;
-	}   
-	
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	} 
 }

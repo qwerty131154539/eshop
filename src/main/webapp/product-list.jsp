@@ -55,6 +55,9 @@
     <div style="text-align: center;">
         <a href="product/return">回登入頁</a>
     </div>
+    <div style="text-align:center; margin-top:30px;">
+        <a href="cart/go-to-cart">購物車</a>
+    </div>
 </body>
 </html>
 
