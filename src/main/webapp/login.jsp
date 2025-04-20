@@ -10,6 +10,15 @@
 </head>
 <body>
     <h1>登入頁面</h1>
+    
+    <c:out value="${sessionScope['userMsg']}" />
+    
+    <!-- 顯示註冊成功訊息 -->
+    <c:if test="${not empty sessionScope['userMsg']}">
+        <p style="color: green; text-align: center;">
+            ${sessionScope['userMsg']}
+        </p>
+    </c:if>
 
     <form id="loginForm" action="login/login" method="post">
         <table>

@@ -16,10 +16,7 @@ public interface UserService {
      */
     public User getLoginUser(User user);
 
-    /**
-     * 新增一個新的使用者
-     * 
-     * @param user  要新增的使用者資料
-     */
     public void addUser(User user);
+    
+    boolean isLoginIdExists(String loginId);
 }

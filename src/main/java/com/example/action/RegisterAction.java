@@ -46,7 +46,6 @@ public class RegisterAction extends BaseAction {
         if (!doCheck(user)) {
             return INPUT;
         }
-
         try {
             // 設置註冊時間
             setUserCreateDate(user);
@@ -61,7 +60,6 @@ public class RegisterAction extends BaseAction {
             getSession().setAttribute(ConstantName.SESSION_USER_MSG, "註冊失敗，請重試");
             return INPUT;
         }
-
         return SUCCESS;
     }
 
@@ -71,10 +69,26 @@ public class RegisterAction extends BaseAction {
      * @return 若檢查通過返回 true，否則返回 false
      */
     private boolean doCheck(User user) {
-        // 檢查帳號、密碼格式、是否已經存在等邏輯可以放在這裡
-        // 比如，可以在這裡加上檢查帳號是否已經被註冊
-        return user != null && user.getLoginId() != null && !user.getLoginId().isEmpty();
+        if (user == null || user.getLoginId() == null || user.getLoginId().trim().isEmpty()) {
+            getSession().setAttribute(ConstantName.SESSION_USER_MSG, "帳號不能為空");
+            return false;
+        }
+
+        if (userService.isLoginIdExists(user.getLoginId())) {
+            getSession().setAttribute(ConstantName.SESSION_USER_MSG, "帳號已被註冊");
+            return false;
+        }
+
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            getSession().setAttribute(ConstantName.SESSION_USER_MSG, "密碼不能為空");
+            return false;
+        }
+
+        // 其他檢查條件可繼續擴充，例如帳號長度、密碼強度、手機格式等
+
+        return true;
     }
+
 
     /**
      * 設置使用者的創建日期

@@ -19,4 +19,6 @@ public interface UserDao {
      * @return 無回傳值，成功則資料會被儲存至資料庫
      */
     public void addUser(User user);
+    
+    boolean existsByLoginId(String loginId);
 }

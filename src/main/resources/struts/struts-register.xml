@@ -20,7 +20,7 @@
         <!-- 註解：處理註冊頁面請求的 action -->
         <action name="register" class="com.example.action.RegisterAction" method="register">
             <!-- 註解：當註冊成功後，轉跳到註冊頁面 -->
-            <result name="success">/WEB-INF/views/register/register.jsp</result>
+            <result name="success">/register.jsp</result>
         </action>
 
         <!-- 註解：處理註冊資料儲存的 action -->

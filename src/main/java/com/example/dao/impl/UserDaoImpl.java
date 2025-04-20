@@ -63,6 +63,17 @@ public class UserDaoImpl implements UserDao {
         // 若查詢結果不為空，返回第一筆資料
         return userList.isEmpty() ? null : userList.get(0);
     }
+    
+    @Override
+    public boolean existsByLoginId(String loginId) {
+        // 查詢該 loginId 是否存在
+        String hql = "select count(*) from User where loginId = :loginId";
+        Query<Long> query = getSession().createQuery(hql, Long.class);
+        query.setParameter("loginId", loginId);
+        Long count = query.uniqueResult();
+
+        return count != null && count > 0;
+    }
 
     /**
      * 獲取當前 Hibernate 的 Session 物件。

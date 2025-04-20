@@ -14,10 +14,9 @@ import com.example.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
-    // 自動注入 UserDao，負責執行實際的資料庫操作
-    @Autowired
-    private UserDao userDao;
+	
+	@Autowired
+	private UserDao userDao;
 
     /**
      * 根據使用者的登入帳號與密碼，查詢使用者是否存在。
@@ -41,5 +40,9 @@ public class UserServiceImpl implements UserService {
         // 呼叫 UserDao 來新增使用者
         userDao.addUser(user);
     }
-
+    
+    @Override
+    public boolean isLoginIdExists(String loginId) {
+        return userDao.existsByLoginId(loginId);
+    }
 }
