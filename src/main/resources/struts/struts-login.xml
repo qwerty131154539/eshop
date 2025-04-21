@@ -43,7 +43,10 @@
             <!-- 
                 當登入成功時，導向至首頁 
             -->
-            <result name="success" type="redirect">/home/index</result>
+            <result name="success" type="redirect">/login.jsp</result>
         </action>
+        <action name="logout" class="com.example.action.LoginAction" method="logout">
+		    <result name="success">/login.jsp</result>
+		</action>
     </package>
 </struts>

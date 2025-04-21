@@ -11,16 +11,15 @@
 <body>
     <h1>登入頁面</h1>
     
-    <c:out value="${sessionScope['userMsg']}" />
-    
-    <!-- 顯示註冊成功訊息 -->
-    <c:if test="${not empty sessionScope['userMsg']}">
-        <p style="color: green; text-align: center;">
-            ${sessionScope['userMsg']}
-        </p>
-    </c:if>
+    <!-- 頁面右上角顯示用戶名稱與登出連結 -->
+	<div style="position: absolute; top: 10px; right: 20px;">
+	    <c:if test="${not empty sessionScope.session_user}">
+	        歡迎，<c:out value="${sessionScope.session_user.name}" />！
+	        <a href="<c:url value='/login/logout'/>">登出</a>
+	    </c:if>
+	</div>
 
-    <form id="loginForm" action="login/login" method="post">
+    <form id="loginForm" action="<c:url value='/login/login' />" method="post">
         <table>
             <c:if test="${not empty msg}">
                 <tr>
@@ -41,16 +40,20 @@
                 <td colspan="2" align="center">
                     <br />
                     <button type="button" onclick="validateAndSubmit()">登入</button>
-                    &nbsp;<a href="register/register">註冊</a>
                 </td>
             </tr>
         </table>
     </form>
+    
+    <!-- 把註冊超連結放在 form 外面 -->
+	<div style="text-align: center; margin-top: 10px;">
+	    <a href="<c:url value='/register/register'/>">註冊</a>
+	</div>
 
     <br>
     <!-- 商品清單超連結 -->
     <div style="text-align: center;">
-        <a href="product/product-list">商品清單</a>
+        <a href="<c:url value='/product/product-list' />">商品清單</a>
     </div>
 
     <script>

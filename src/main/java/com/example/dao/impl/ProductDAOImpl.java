@@ -33,8 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
                 .createQuery("SELECT p FROM Product p JOIN FETCH p.category c WHERE c.id = :id", Product.class)
                 .setParameter("id", id)
                 .list();
-    }
-    
+    }    
     @Override
     public Product getProductById(int id) {
         return sessionFactory.getCurrentSession()
@@ -42,7 +41,6 @@ public class ProductDAOImpl implements ProductDAO {
                 .setParameter("id", id)
                 .uniqueResult();
     }
-
     @Override
     public Product findById(int id) {
         return entityManager.find(Product.class, id);

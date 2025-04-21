@@ -50,13 +50,19 @@ public class LoginAction extends BaseAction {
         // 如果用戶資料存在且登入 ID 正確
         if (user != null && !"".equals(user.getLoginId())) {
             // 登入成功，將用戶資料放入 session 中
-            getSession().setAttribute(ConstantName.SESSION_USER, user);
+            getSession().setAttribute(ConstantName.SESSION_USER, user); // 登入成功，將用戶資料放入 session 中
+            getSession().removeAttribute("msg"); // 清除錯誤訊息
             return SUCCESS;
         }
 
         // 登入失敗，顯示錯誤訊息並返回輸入頁
         getSession().setAttribute("msg", "帳號或密碼錯誤");
         return INPUT;
+    }
+    
+    public String logout() {
+        getSession().invalidate(); // 清除所有 session 資料
+        return SUCCESS; // 或導回 login 頁面
     }
 
     // Getter 和 Setter 方法

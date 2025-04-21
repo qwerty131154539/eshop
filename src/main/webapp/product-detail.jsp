@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>商品詳細資料</title>
@@ -27,6 +29,13 @@
     </style>
 </head>
 <body>
+
+	<div style="position: absolute; top: 10px; right: 20px;">
+	    <c:if test="${not empty sessionScope.session_user}">
+	        歡迎，<c:out value="${sessionScope.session_user.name}" />！
+	        <a href="<c:url value='/login/logout'/>">登出</a>
+	    </c:if>
+	</div>
 
     <div class="container">
         <h2>商品詳細資料</h2>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <!-- 註解：定義註冊頁面所需的動作處理，這個 package 用來處理註冊相關功能 -->
+    <package name="order" extends="default" namespace="/order">
+        <!-- 註解：定義當前 package 的攔截器堆疊 -->
+        <interceptors>
+            <!-- 註解：這裡定義了一個名為 "registerStack" 的攔截器堆疊，包含 model 驅動和檔案上傳的處理 -->
+            <interceptor-stack name="registerStack">
+                <interceptor-ref name="modelDrivenStack" />
+                <interceptor-ref name="fileUpload" />
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 註解：這是設置當前 package 下所有 action 預設使用的攔截器堆疊 -->
+        <default-interceptor-ref name="registerStack" />
+
+        <!-- 註解：處理註冊頁面請求的 action -->
+        <action name="create-order" class="com.example.action.OrderAction" method="createOrder">
+	        <result name="success">/order-success.jsp</result>
+	        <result name="login" type="redirect">/login/login.jsp</result>
+	    </action>
+	
+	    <action name="my-orders" class="com.example.action.OrderAction" method="listUserOrders">
+	        <result name="myOrders">/my-orders.jsp</result>
+	    </action>
+	
+	    <action name="admin-orders" class="com.example.action.OrderAction" method="adminOrderList">
+	        <result name="adminOrders">/admin-orders.jsp</result>
+	    </action>
+	
+	    <action name="order-detail" class="com.example.action.OrderAction" method="viewOrderDetail">
+	        <result name="orderDetail">/order-detail.jsp</result>
+	    </action>
+	
+	    <action name="update-status" class="com.example.action.OrderAction" method="updateStatus">
+	        <result name="redirectList" type="redirect">/order/admin-orders</result>
+	    </action>
+    </package>
+</struts>
