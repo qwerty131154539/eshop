@@ -1,14 +1,23 @@
 package com.example.action;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.pojo.entity.CartItem;
 import com.example.pojo.entity.Order;
+import com.example.pojo.entity.OrderItem;
+import com.example.pojo.entity.ShoppingCart;
 import com.example.pojo.entity.User;
 import com.example.service.OrderService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class OrderAction extends ActionSupport implements SessionAware {
@@ -25,11 +34,53 @@ public class OrderAction extends ActionSupport implements SessionAware {
     /** 1. 建立訂單（從購物車建立） */
     public String createOrder() {
         User user = (User) session.get("session_user");
-        if (user == null) return "login";
+        if (user == null) return "login"; // 若使用者未登入，跳到登入頁面
 
+        // 透過 ActionContext 取得 request 物件
+        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+
+        // 取得表單資料
+        String receiverName = request.getParameter("order.receiverName");
+        String receiverAddress = request.getParameter("order.receiverAddress");
+        String receiverPhone = request.getParameter("order.receiverPhone");
+
+        // 檢查購物車是否存在
+        ShoppingCart cart = (ShoppingCart) session.get("cart");
+        if (cart == null || cart.getItems().isEmpty()) {
+            return "error";  // 若購物車是空的，返回錯誤頁面
+        }
+
+        // 創建訂單
+        Order order = new Order();
+        order.setUser(user);
+        order.setReceiverName(receiverName);
+        order.setReceiverAddress(receiverAddress);
+        order.setReceiverPhone(receiverPhone);
+        order.setOrderDate(new Date());
+        order.setStatus("處理中");
+
+        List<OrderItem> items = new ArrayList<>();
+        for (CartItem ci : cart.getItems()) {
+            OrderItem item = new OrderItem();
+            item.setProduct(ci.getProduct());
+            item.setQuantity(ci.getQuantity());
+            item.setSubtotal(ci.getSubtotal());
+            item.setOrder(order);
+            items.add(item);
+        }
+
+        order.setItems(items);
+        order.setTotal(cart.getTotal());
+
+        // 使用 service 保存訂單
         orderService.createOrder(user, session);
-        return "success"; // 導向 order-success.jsp
+
+        // 清空購物車
+        session.remove("cart");
+
+        return "success";  // 訂單成功後，跳轉到成功頁面
     }
+
 
     /** 2. 查看自己的訂單清單 */
     public String listUserOrders() {
@@ -65,4 +116,21 @@ public class OrderAction extends ActionSupport implements SessionAware {
     public int getOrderId() { return orderId; }
     public void setOrderId(int orderId) { this.orderId = orderId; }
     public List<Order> getOrderList() { return orderList; }
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public Map<String, Object> getSession() {
+		return session;
+	}
+
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+    
 }

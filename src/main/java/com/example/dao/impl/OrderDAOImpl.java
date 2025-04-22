@@ -32,7 +32,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> findByUserId(int userId) {
+    public List<Order> findByUserId(String userId) {
         return entityManager.createQuery(
             "SELECT o FROM Order o WHERE o.user.id = :uid", Order.class)
             .setParameter("uid", userId)

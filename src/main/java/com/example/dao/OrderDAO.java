@@ -8,6 +8,6 @@ public interface OrderDAO {
     void save(Order order);
     void update(Order order);
     Order findById(int orderId);
-    List<Order> findByUserId(int userId);
+    List<Order> findByUserId(String userId);
     List<Order> findAll();
 }

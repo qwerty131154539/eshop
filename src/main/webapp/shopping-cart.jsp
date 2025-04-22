@@ -82,6 +82,12 @@
             </tr>
         </table>
     </form>
+    <!-- 結帳按鈕 -->
+	<div class="center">
+	    <form action="order/create-order-insert" method="post">
+	        <input type="submit" value="🧾 結帳" class="btn" style="font-size: 16px; padding: 10px 20px;" />
+	    </form>
+	</div>
 <%
     }
 %>

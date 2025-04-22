@@ -8,7 +8,7 @@ import com.example.pojo.entity.User;
 
 public interface OrderService {
     void createOrder(User user, Map<String, Object> session);
-    List<Order> getOrdersByUser(int userId);
+    List<Order> getOrdersByUser(String userId);
     List<Order> getAllOrders();
     Order getOrderById(int orderId);
     void updateOrderStatus(int orderId, String status);

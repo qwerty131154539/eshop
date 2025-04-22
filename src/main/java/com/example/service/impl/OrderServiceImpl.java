@@ -1,12 +1,19 @@
 package com.example.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.OrderDAO;
-import com.example.pojo.entity.*;
+import com.example.pojo.entity.CartItem;
+import com.example.pojo.entity.Order;
+import com.example.pojo.entity.OrderItem;
+import com.example.pojo.entity.ShoppingCart;
+import com.example.pojo.entity.User;
 import com.example.service.OrderService;
 
 @Service
@@ -44,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUser(int userId) {
+    public List<Order> getOrdersByUser(String userId) {
         return orderDAO.findByUserId(userId);
     }
 

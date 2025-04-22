@@ -18,9 +18,13 @@
         <default-interceptor-ref name="registerStack" />
 
         <!-- 註解：處理註冊頁面請求的 action -->
+        <action name="create-order-insert" class="com.example.action.OrderAction">
+	        <result name="success">/check-out.jsp</result>
+	        <result name="login" type="redirect">/login.jsp</result>
+	    </action>
         <action name="create-order" class="com.example.action.OrderAction" method="createOrder">
 	        <result name="success">/order-success.jsp</result>
-	        <result name="login" type="redirect">/login/login.jsp</result>
+	        <result name="login" type="redirect">/login.jsp</result>
 	    </action>
 	
 	    <action name="my-orders" class="com.example.action.OrderAction" method="listUserOrders">
