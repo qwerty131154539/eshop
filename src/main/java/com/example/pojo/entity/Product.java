@@ -34,7 +34,7 @@ public class Product {
     @Column(name = "stock")
     private Integer stock;
     
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
     
     @ManyToOne
@@ -78,6 +78,7 @@ public class Product {
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
+	
 	public String getImageUrl() {
 		return imageUrl;
 	}

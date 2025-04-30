@@ -49,7 +49,10 @@
         <s:iterator value="products">
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img src="<s:property value='imageUrl'/>" class="card-img-top" alt="<s:property value='name'/>">
+                    <a href="product/product-detail?productId=<s:property value='id'/>">
+					    <img src="<s:property value='imageUrl'/>" class="card-img-top" alt="<s:property value='name'/>">
+					</a>
+
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="product/product-detail?productId=<s:property value='id'/>" class="text-decoration-none text-dark">
@@ -58,7 +61,6 @@
                         </h5>
                         <p class="card-text">類型：<s:property value="type" /></p>
                         <p class="card-text text-danger fw-bold">NT$ <s:property value="price"/></p>
-                        <a href="cart/add-to-cart?productId=<s:property value='id'/>" class="btn btn-success">加入購物車</a>
                     </div>
                 </div>
             </div>
