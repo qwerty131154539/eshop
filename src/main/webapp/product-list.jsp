@@ -70,7 +70,7 @@
     <!-- 🔙 返回 & 購物車連結 -->
     <div class="text-center mt-4">
         <a href="product/return" class="btn btn-secondary me-2">回登入頁</a>
-        <a href="cart/go-to-cart" class="btn btn-warning">購物車</a>
+        <a href="<c:url value='/cart/go-to-cart'/>" class="btn btn-warning">前往購物車</a>
     </div>
 
 </div>

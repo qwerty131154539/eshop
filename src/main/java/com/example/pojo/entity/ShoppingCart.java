@@ -8,15 +8,20 @@ public class ShoppingCart {
 
     private Map<Integer, CartItem> items = new LinkedHashMap<>();
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product, int quantity) {
+        if (quantity <= 0) {
+            quantity = 1; // 確保最少加 1
+        }
+
         CartItem item = items.get(product.getId());
         if (item == null) {
-            item = new CartItem(product, 1);
+            item = new CartItem(product, quantity);
             items.put(product.getId(), item);
         } else {
-            item.setQuantity(item.getQuantity() + 1);
+            item.setQuantity(item.getQuantity() + quantity);
         }
     }
+
 
     public void updateQuantity(int productId, int quantity) {
         if (quantity <= 0) {

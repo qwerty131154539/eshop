@@ -19,7 +19,8 @@ public class CartAction extends ActionSupport implements SessionAware {
 
     public String addToCart() {
     	System.out.println("🔍 加入商品 ID：" + productId);
-        cartService.addToCart(session, productId);
+    	if (quantity <= 0) quantity = 1; // 防呆
+        cartService.addToCart(session, productId, quantity);
         return SUCCESS;
     }
 

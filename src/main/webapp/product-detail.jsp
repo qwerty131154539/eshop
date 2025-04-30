@@ -14,11 +14,15 @@
 $(document).ready(function () {
     $("#addToCartBtn").click(function () {
         const productId = $("#productId").val();
+        const quantity = $("#quantity").val();
 
         $.ajax({
             url: "<c:url value='/cart/add-to-cart'/>",
             method: "GET",
-            data: { productId: productId },
+            data: {
+                productId: productId,
+                quantity: quantity
+            },
             success: function () {
                 $("#addToCartMessage").fadeIn().delay(1500).fadeOut();
             },
@@ -28,6 +32,7 @@ $(document).ready(function () {
         });
     });
 });
+
 </script>
 
 <body>
@@ -62,9 +67,15 @@ $(document).ready(function () {
                     <!-- 加入購物車按鈕（AJAX 版） -->
 					<div class="mt-4">
 					    <input type="hidden" id="productId" value="<s:property value='product.id'/>" />
-					    <button id="addToCartBtn" class="btn btn-primary">加入購物車</button>
+					
+					    <!-- 新增數量欄位 -->
+					    <label for="quantity" class="form-label">數量：</label>
+					    <input type="number" id="quantity" class="form-control d-inline-block" value="1" min="1" style="width: 100px;" />
+					
+					    <button id="addToCartBtn" class="btn btn-primary mt-2">加入購物車</button>
 					    <div id="addToCartMessage" class="mt-2 text-success" style="display:none;">✅ 已成功加入購物車！</div>
 					</div>
+
                 </div>
             </div>
         </div>

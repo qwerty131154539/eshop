@@ -18,13 +18,14 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private ProductDAO productDAO;
 
-    public void addToCart(Map<String, Object> session, int productId) {
+    public void addToCart(Map<String, Object> session, int productId, int quantity) {
         ShoppingCart cart = getOrCreateCart(session);
         Product product = productDAO.findById(productId);
-        if (product != null) {
-            cart.addProduct(product);
+        if (product != null && quantity > 0) {
+            cart.addProduct(product, quantity); // ➤ 新增數量參數
         }
     }
+
     
     @Override
     public void removeFromCart(Map<String, Object> session, int productId) {
