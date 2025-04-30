@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <hibernate-mapping>
-    <class name="com.example.pojo.entity.Product" table="product">
-        <id name="id" column="id" type="int">
-            <generator class="native"/>
-        </id>
-        <property name="name" column="name" type="string"/>
-        <property name="price" column="price" type="double"/>  
-        <property name="type" column="type" type="string"/>  
-        
-        <many-to-one name="category" class="com.example.pojo.entity.Category" column="category_id" />
-    </class>
+	<class name="com.example.pojo.entity.Product" table="product">
+		<id name="id" column="id" type="int">
+			<generator class="native" />
+		</id>
+		<property name="name" column="name" type="string" />
+		<property name="price" column="price" type="double" />
+		<property name="type" column="type" type="string" />
+
+		<many-to-one name="category"
+			class="com.example.pojo.entity.Category" column="category_id" />
+	</class>
 </hibernate-mapping>
 

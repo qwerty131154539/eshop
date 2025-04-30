@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <hibernate-mapping package="com.example.pojo.entity">
-    <class name="Category" table="category">
-        <id name="id" column="id">
-            <generator class="identity"/> <!-- 對應 auto_increment -->
-        </id>
+	<class name="Category" table="category">
+		<id name="id" column="id">
+			<generator class="identity" /> <!-- 對應 auto_increment -->
+		</id>
 
-        <property name="type" column="type" not-null="true" unique="true"/>
+		<property name="type" column="type" not-null="true"
+			unique="true" />
 
-        <set name="products" cascade="all" inverse="true">
-            <key column="category_id"/> <!-- 🔁 修正這裡：foreign key 在 Product 裡 -->
-            <one-to-many class="com.example.pojo.entity.Product"/>
-        </set>
-    </class>
+		<set name="products" cascade="all" inverse="true">
+			<key column="category_id" /> <!-- 🔁 修正這裡：foreign key 在 Product 裡 -->
+			<one-to-many class="com.example.pojo.entity.Product" />
+		</set>
+	</class>
 </hibernate-mapping>

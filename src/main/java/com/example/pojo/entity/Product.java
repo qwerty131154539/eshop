@@ -22,11 +22,20 @@ public class Product {
     @Column(name = "name")
     private String name;
     
+    @Column(name = "description")
+    private String description;
+    
     @Column(name = "price")
     private Double price;
     
     @Column(name = "type")
     private String type;
+    
+    @Column(name = "stock")
+    private Integer stock;
+    
+    @Column(name = "imageUrl")
+    private String imageUrl;
     
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -57,7 +66,24 @@ public class Product {
 	public void setCategory(Category category) {
 	    this.category = category;
 	}	
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Integer getStock() {
+		return stock;
+	}
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	@Override
 	public boolean equals(Object o) {
 	    if (this == o) return true;

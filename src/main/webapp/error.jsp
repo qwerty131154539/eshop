@@ -3,8 +3,10 @@
 <html>
 <body>
 	<c:if test="${!empty msg}">
-		<h1><c:out value="${msg }" /></h1>
+		<h1>
+			<c:out value="${msg }" />
+		</h1>
 	</c:if>
-	<a href="home/index" style="text-decoration:none;">首頁</a>
+	<a href="home/index" style="text-decoration: none;">首頁</a>
 </body>
 </html>
