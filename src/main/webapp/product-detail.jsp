@@ -8,6 +8,28 @@
     <title>商品詳細資料</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<!-- jQuery + AJAX -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $("#addToCartBtn").click(function () {
+        const productId = $("#productId").val();
+
+        $.ajax({
+            url: "<c:url value='/cart/add-to-cart'/>",
+            method: "GET",
+            data: { productId: productId },
+            success: function () {
+                $("#addToCartMessage").fadeIn().delay(1500).fadeOut();
+            },
+            error: function () {
+                alert("❌ 加入購物車失敗，請稍後再試。");
+            }
+        });
+    });
+});
+</script>
+
 <body>
 <div class="container mt-4">
 
@@ -37,11 +59,12 @@
                     <p class="card-text"><strong>類型：</strong> <s:property value="product.type"/></p>
                     <p class="card-text"><strong>分類：</strong> <s:property value="product.category.type"/></p>
 
-                    <!-- 加入購物車表單 -->
-                    <s:form action="/cart/add-to-cart" method="get" cssClass="mt-4">
-                        <s:hidden name="productId" value="%{product.id}" />
-                        <s:submit value="加入購物車" cssClass="btn btn-primary"/>
-                    </s:form>
+                    <!-- 加入購物車按鈕（AJAX 版） -->
+					<div class="mt-4">
+					    <input type="hidden" id="productId" value="<s:property value='product.id'/>" />
+					    <button id="addToCartBtn" class="btn btn-primary">加入購物車</button>
+					    <div id="addToCartMessage" class="mt-2 text-success" style="display:none;">✅ 已成功加入購物車！</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -50,7 +73,7 @@
     <!-- 導覽按鈕 -->
     <div class="text-center">
         <a href="product/product-list" class="btn btn-secondary me-2">返回商品清單</a>
-        <a href="cart/go-to-cart" class="btn btn-warning">前往購物車</a>
+        <a href="<c:url value='/cart/go-to-cart'/>" class="btn btn-warning">前往購物車</a>
     </div>
 
 </div>

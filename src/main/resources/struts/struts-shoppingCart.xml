@@ -20,7 +20,7 @@
 			<result name="success" type="redirect">/shopping-cart.jsp</result>
 		</action>
 		<action name="go-to-cart" class="com.example.action.CartAction">
-			<result name="success" type="dispatcher">/shopping-cart.jsp</result>
+			<result name="success" type="redirect">/shopping-cart.jsp</result>
 		</action>
 		<action name="remove-from-cart"
 			class="com.example.action.CartAction" method="removeFromCart">
