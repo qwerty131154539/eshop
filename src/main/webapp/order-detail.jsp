@@ -35,12 +35,12 @@
 			<th>單價</th>
 			<th>小計</th>
 		</tr>
-		<s:iterator value="order.orderItems">
+		<s:iterator value="order.items">
 			<tr>
 				<td><s:property value="product.name" /></td>
 				<td><s:property value="quantity" /></td>
-				<td>$<s:property value="price" /></td>
-				<td>$<s:property value="price * quantity" /></td>
+				<td>$<s:property value="product.price" /></td>
+				<td>$<s:property value="subtotal" /></td>
 			</tr>
 		</s:iterator>
 	</table>

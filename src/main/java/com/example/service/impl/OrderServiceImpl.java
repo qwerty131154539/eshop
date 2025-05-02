@@ -23,31 +23,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderDAO orderDAO;
 
     @Override
-    public void createOrder(User user, Map<String, Object> session) {
-        ShoppingCart cart = (ShoppingCart) session.get("cart");
-        if (cart == null || cart.getItems().isEmpty()) return;
-
-        Order order = new Order();
-        order.setUser(user);
-        order.setOrderDate(new Date());
-        order.setStatus("處理中");
-
-        List<OrderItem> items = new ArrayList<>();
-        for (CartItem ci : cart.getItems()) {
-            OrderItem item = new OrderItem();
-            item.setProduct(ci.getProduct());
-            item.setQuantity(ci.getQuantity());
-            item.setSubtotal(ci.getSubtotal());
-            item.setOrder(order);
-            items.add(item);
-        }
-
-        order.setItems(items);
-        order.setTotal(cart.getTotal());
-
+    public void createOrder(Order order) {
+        // 直接儲存，因為 Order 物件已經在 Action 裡準備好了（包含 User、Items 等）
         orderDAO.save(order);
-
-        session.remove("cart"); // 清除購物車
     }
 
     @Override
@@ -74,3 +52,4 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 }
+

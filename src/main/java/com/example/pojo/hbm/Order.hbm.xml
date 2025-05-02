@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<hibernate-mapping>
+<hibernate-mapping >
 	<class name="com.example.pojo.entity.Order" table="orders">
 		<id name="id" column="id">
 			<generator class="identity" />
@@ -13,10 +13,16 @@
 			type="timestamp" />
 		<property name="status" column="status" type="string" />
 		<property name="total" column="total" type="double" />
+		<property name="receiverName" column="receiver_name" type="string"/>
+		<property name="receiverAddress" column="receiver_address" type="string"/>
+		<property name="receiverPhone" column="receiver_phone" type="string"/>
+		
 
-		<set name="items" cascade="all-delete-orphan" inverse="true">
-			<key column="order_id" />
-			<one-to-many class="com.example.pojo.entity.OrderItem" />
-		</set>
+		<list name="items" cascade="all-delete-orphan" inverse="true">
+		    <key column="order_id"/>
+		    <list-index column="list_index"/>
+		    <one-to-many class="com.example.pojo.entity.OrderItem"/>
+		</list>
+
 	</class>
 </hibernate-mapping>

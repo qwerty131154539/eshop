@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +14,6 @@ import com.example.pojo.entity.OrderItem;
 import com.example.pojo.entity.ShoppingCart;
 import com.example.pojo.entity.User;
 import com.example.service.OrderService;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class OrderAction extends ActionSupport implements SessionAware {
@@ -34,30 +30,19 @@ public class OrderAction extends ActionSupport implements SessionAware {
     /** 1. 建立訂單（從購物車建立） */
     public String createOrder() {
         User user = (User) session.get("session_user");
-        if (user == null) return "login"; // 若使用者未登入，跳到登入頁面
+        if (user == null) return "login";
 
-        // 透過 ActionContext 取得 request 物件
-        HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-
-        // 取得表單資料
-        String receiverName = request.getParameter("order.receiverName");
-        String receiverAddress = request.getParameter("order.receiverAddress");
-        String receiverPhone = request.getParameter("order.receiverPhone");
-
-        // 檢查購物車是否存在
+        // 檢查購物車
         ShoppingCart cart = (ShoppingCart) session.get("cart");
         if (cart == null || cart.getItems().isEmpty()) {
-            return "error";  // 若購物車是空的，返回錯誤頁面
+            return "error";
         }
 
-        // 創建訂單
-        Order order = new Order();
+        // 直接使用 Struts2 綁定進來的 Order 物件
         order.setUser(user);
-        order.setReceiverName(receiverName);
-        order.setReceiverAddress(receiverAddress);
-        order.setReceiverPhone(receiverPhone);
         order.setOrderDate(new Date());
         order.setStatus("處理中");
+        order.setTotal(cart.getTotal());
 
         List<OrderItem> items = new ArrayList<>();
         for (CartItem ci : cart.getItems()) {
@@ -70,16 +55,16 @@ public class OrderAction extends ActionSupport implements SessionAware {
         }
 
         order.setItems(items);
-        order.setTotal(cart.getTotal());
 
-        // 使用 service 保存訂單
-        orderService.createOrder(user, session);
+        // 呼叫 service 儲存訂單（這邊記得改成傳入 order，不要再傳 user+session）
+        orderService.createOrder(order);
 
         // 清空購物車
         session.remove("cart");
 
-        return "success";  // 訂單成功後，跳轉到成功頁面
+        return "success";
     }
+
 
 
     /** 2. 查看自己的訂單清單 */
