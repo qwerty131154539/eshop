@@ -58,6 +58,10 @@ public class OrderAction extends ActionSupport implements SessionAware {
 
         // 呼叫 service 儲存訂單（這邊記得改成傳入 order，不要再傳 user+session）
         orderService.createOrder(order);
+        
+        session.put("last_order_id", order.getId());
+        
+        session.put("last_order", order);
 
         // 清空購物車
         session.remove("cart");

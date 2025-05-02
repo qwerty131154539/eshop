@@ -17,6 +17,10 @@
 		<!-- 覆寫父 package（繼承自 "default"）的預設攔截器 default-interceptor-ref， 由於登入頁面不需要驗證身份，因此自訂一個攔截器堆疊來處理登入請求。 -->
 		<default-interceptor-ref name="loginStack" />
 
+
+		<action name="login-page">
+		    <result>/login.jsp</result>
+		</action>
 		<!-- 定義登入的 Action： - Action 名稱為 "login"，對應的處理類別為 com.example.action.LoginAction 
 			- 方法 "doLogin" 負責處理登入邏輯 -->
 		<action name="login" class="com.example.action.LoginAction"
@@ -29,7 +33,7 @@
 			<result name="input" type="redirect">/login.jsp</result>
 
 			<!-- 當登入成功時，導向至首頁 -->
-			<result name="success" type="redirect">/login.jsp</result>
+			<result name="success" type="redirect">/login-success.jsp</result>
 		</action>
 		<action name="logout" class="com.example.action.LoginAction"
 			method="logout">

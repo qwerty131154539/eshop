@@ -6,125 +6,95 @@
     ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-<title>結帳</title>
-<style>
-body {
-	font-family: Arial;
-	background: #f8f8f8;
-}
-
-.form-container {
-	width: 80%;
-	margin: auto;
-	padding: 30px;
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-field {
-	display: flex;
-	align-items: center;
-	margin-bottom: 15px;
-}
-
-.form-field label {
-	width: 120px;
-	text-align: right;
-	margin-right: 10px;
-	font-weight: bold;
-}
-
-.form-field input {
-	flex: 1;
-	padding: 5px;
-	font-size: 14px;
-}
-
-table {
-	border-collapse: collapse;
-	width: 100%;
-	margin-top: 20px;
-}
-
-th, td {
-	border: 1px solid #ccc;
-	padding: 10px;
-	text-align: center;
-}
-
-h2, h3 {
-	text-align: center;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>結帳</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-	<div class="form-container">
-		<h2>🔐 結帳資訊</h2>
+<div class="container mt-5 mb-5">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white text-center">
+            <h3>🔐 結帳資訊</h3>
+        </div>
+        <div class="card-body px-4">
 
-		<s:form action="order/create-order">
-			<div class="form-field">
-				<label>收件人姓名：</label>
-				<s:textfield name="order.receiverName" required="true"
-					cssStyle="width: 100%;" />
-			</div>
-			<div class="form-field">
-				<label>收件地址：</label>
-				<s:textfield name="order.receiverAddress" required="true"
-					cssStyle="width: 100%;" />
-			</div>
-			<div class="form-field">
-				<label>連絡電話：</label>
-				<s:textfield name="order.receiverPhone" required="true"
-					cssStyle="width: 100%;" />
-			</div>
+            <!-- 📝 訂單資訊表單 -->
+            <s:form action="order/create-order">
 
-			<h3>🛒 購買商品列表</h3>
+                <!-- 📋 使用表格排列輸入欄位 -->
+                <table class="table table-borderless align-middle" style="max-width: 600px; margin: auto;">
+                    <tr>
+                        <th class="text-end" style="width: 30%;">收件人姓名：</th>
+                        <td><s:textfield name="order.receiverName" cssClass="form-control" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <th class="text-end">連絡電話：</th>
+                        <td><s:textfield name="order.receiverPhone" cssClass="form-control" required="true"/></td>
+                    </tr>
+                    <tr>
+                        <th class="text-end">收件地址：</th>
+                        <td><s:textfield name="order.receiverAddress" cssClass="form-control" required="true"/></td>
+                    </tr>
+                </table>
 
-			<%
-            if (cart != null && !cart.getItems().isEmpty()) {
-        %>
-			<table>
-				<tr>
-					<th>商品名稱</th>
-					<th>價格</th>
-					<th>數量</th>
-					<th>小計</th>
-				</tr>
-				<%
-                for (CartItem item : cart.getItems()) {
-                    Product p = item.getProduct();
-            %>
-				<tr>
-					<td><%= p.getName() %></td>
-					<td>$<%= p.getPrice() %></td>
-					<td><%= item.getQuantity() %></td>
-					<td>$<%= item.getSubtotal() %></td>
-				</tr>
-				<%
-                }
-            %>
-				<tr>
-					<td colspan="3" style="text-align: right;"><strong>總計：</strong></td>
-					<td>$<%= cart.getTotal() %></td>
-				</tr>
-			</table>
-			<%
-            } else {
-        %>
-			<p style="text-align: center;">⚠️ 購物車是空的</p>
-			<%
-            }
-        %>
+                <!-- 🛒 購買商品清單 -->
+                <h5 class="text-center mt-4 mb-3">🛒 購買商品列表</h5>
 
-			<div style="text-align: center; margin-top: 20px;">
-				<s:submit value="送出訂單" cssClass="btn" />
-			</div>
-		</s:form>
-	</div>
+                <%
+                    if (cart != null && !cart.getItems().isEmpty()) {
+                %>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>商品名稱</th>
+                                <th>價格</th>
+                                <th>數量</th>
+                                <th>小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                for (CartItem item : cart.getItems()) {
+                                    Product p = item.getProduct();
+                            %>
+                            <tr>
+                                <td><%= p.getName() %></td>
+                                <td>$<%= p.getPrice() %></td>
+                                <td><%= item.getQuantity() %></td>
+                                <td>$<%= item.getSubtotal() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            <tr class="fw-bold">
+                                <td colspan="3" class="text-end">總計：</td>
+                                <td>$<%= cart.getTotal() %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <%
+                    } else {
+                %>
+                <div class="alert alert-warning text-center">⚠️ 購物車是空的</div>
+                <%
+                    }
+                %>
+
+                <!-- ✅ 送出訂單按鈕 -->
+                <div class="text-center mt-4">
+                    <s:submit value="送出訂單" cssClass="btn btn-success px-4 py-2" />
+                </div>
+            </s:form>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
