@@ -30,6 +30,18 @@ public class OrderDAOImpl implements OrderDAO {
     public Order findById(int orderId) {
         return entityManager.find(Order.class, orderId);
     }
+    
+    @Override
+    public Order findByIdWithItemsAndProducts(int orderId) {
+        return entityManager.createQuery(
+            "SELECT o FROM Order o " +
+            "LEFT JOIN FETCH o.items oi " +
+            "LEFT JOIN FETCH oi.product " +
+            "WHERE o.id = :id", Order.class)
+            .setParameter("id", orderId)
+            .getSingleResult();
+    }
+
 
     @Override
     public List<Order> findByUserId(String userId) {

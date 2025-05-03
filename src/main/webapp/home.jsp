@@ -17,13 +17,13 @@
         .header {
             background-color: #343a40;
             color: white;
-            padding: 20px;
+            padding: 60px;
             text-align: right;
         }
 
         .header span {
             float: left;
-            font-size: 24px;
+            font-size: 36px;
         }
 
         .header a {

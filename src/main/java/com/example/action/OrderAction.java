@@ -88,9 +88,10 @@ public class OrderAction extends ActionSupport implements SessionAware {
 
     /** 4. 查看訂單明細 */
     public String viewOrderDetail() {
-        order = orderService.getOrderById(orderId);
-        return "orderDetail"; // 導向 order-detail.jsp
+        order = orderService.getOrderWithItemsAndProducts(orderId);
+        return "orderDetail";
     }
+
 
     /** 5. 更新訂單狀態（例如：改成已出貨） */
     public String updateStatus() {

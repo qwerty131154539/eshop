@@ -42,6 +42,11 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrderById(int orderId) {
         return orderDAO.findById(orderId);
     }
+    
+    @Override
+    public Order getOrderWithItemsAndProducts(int orderId) {
+        return orderDAO.findByIdWithItemsAndProducts(orderId);
+    }
 
     @Override
     public void updateOrderStatus(int orderId, String status) {
